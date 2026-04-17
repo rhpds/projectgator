@@ -63,7 +63,7 @@ export default function Home() {
         </div>
       </PageSection>
 
-      <PageSection>
+      <PageSection padding={{ default: 'padding' }}>
         <Title headingLevel="h2" size="xl" style={{ marginBottom: '1.5rem' }}>
           Features
         </Title>

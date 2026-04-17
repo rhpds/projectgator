@@ -159,7 +159,7 @@ export default function TasksPage() {
 
   return (
     <>
-      <PageSection>
+      <PageSection padding={{ default: 'padding' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <Title headingLevel="h1" size="2xl">
             Tasks
@@ -260,6 +260,7 @@ export default function TasksPage() {
         title="Create New Task"
         isOpen={isModalOpen}
         onClose={handleModalToggle}
+        appendTo={() => document.body}
         actions={[
           <Button
             key="create"

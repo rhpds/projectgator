@@ -142,7 +142,7 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <PageSection>
+      <PageSection padding={{ default: 'padding' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <Title headingLevel="h1" size="2xl">
             Projects
@@ -234,6 +234,7 @@ export default function ProjectsPage() {
         title="Create New Project"
         isOpen={isModalOpen}
         onClose={handleModalToggle}
+        appendTo={() => document.body}
         actions={[
           <Button
             key="create"

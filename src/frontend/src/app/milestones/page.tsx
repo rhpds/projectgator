@@ -6,7 +6,7 @@ import BullseyeIcon from '@patternfly/react-icons/dist/esm/icons/bullseye-icon';
 
 export default function MilestonesPage() {
   return (
-    <PageSection>
+    <PageSection padding={{ default: 'padding' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <Title headingLevel="h1" size="2xl">
           Milestones
