@@ -79,7 +79,7 @@ export default function ProjectsPage() {
     setError(null);
 
     try {
-      const response = await fetch('/api/v1/projects', {
+      const response = await fetch('/api/v1/projects/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -109,7 +109,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     // Fetch projects on mount
     setIsLoading(true);
-    fetch('/api/v1/projects')
+    fetch('/api/v1/projects/')
       .then(res => res.json())
       .then(data => setProjects(data))
       .catch(err => {

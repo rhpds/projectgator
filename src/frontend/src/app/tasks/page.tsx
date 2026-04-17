@@ -88,7 +88,7 @@ export default function TasksPage() {
     setError(null);
 
     try {
-      const response = await fetch('/api/v1/tasks', {
+      const response = await fetch('/api/v1/tasks/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -118,7 +118,7 @@ export default function TasksPage() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('/api/v1/tasks')
+    fetch('/api/v1/tasks/')
       .then(res => res.json())
       .then(data => setTasks(data))
       .catch(err => {
