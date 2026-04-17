@@ -130,7 +130,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ margin: 0, padding: 0 }}>
-        <Page masthead={masthead} sidebar={sidebar} isManagedSidebar>
+        <Page masthead={masthead} sidebar={sidebar} isManagedSidebar isContentFilled>
           {children}
         </Page>
       </body>
