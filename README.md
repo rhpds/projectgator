@@ -1,12 +1,14 @@
-# Projectgator 🐊
+# Projectgator
 
 [![License](https://img.shields.io/badge/license-Internal-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Node](https://img.shields.io/badge/node-20+-green.svg)](https://nodejs.org/)
 
-A simplified project management tool based on Labagator architecture. Track projects, tasks, milestones, and team progress without the complexity of cloud resource planning and deployment orchestration.
+A streamlined project management tool designed for simplicity and efficiency. Built on the battle-tested Labagator architecture, Projectgator helps teams track projects, tasks, and milestones without the overhead of complex deployment orchestration systems.
 
-![Projectgator Home](docs/screenshots/home.png)
+## Welcome to Projectgator
+
+Projectgator brings together the best practices from enterprise-grade event management tools and distills them into a focused, user-friendly project management experience. Whether you're managing a small team or coordinating multiple concurrent initiatives, Projectgator provides the structure you need without overwhelming you with unnecessary features.
 
 ## Table of Contents
 
@@ -21,66 +23,53 @@ A simplified project management tool based on Labagator architecture. Track proj
 - [Development](#development)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
-- [License](#license)
+- [Support](#support)
 
 ## Features
 
 ### Core Functionality
 
-- **📋 Projects** - Create and manage projects with descriptions, deadlines, and status tracking
-  - Planning, Active, On Hold, Completed, and Cancelled states
-  - Owner assignment and date tracking
-  - Full project lifecycle management
+**Projects**  
+Organize your work into projects with rich metadata and status tracking. Each project can have a description, start and due dates, and progress through multiple states from planning to completion. Projects serve as containers for related tasks and provide a high-level view of your initiatives.
 
-- **✅ Tasks** - Comprehensive task tracking with rich metadata
-  - Priority levels (Low, Medium, High, Critical)
-  - Status tracking (Todo, In Progress, Blocked, Done)
-  - Assignee and reporter tracking
-  - Time estimation and actual hours logging
-  - Parent-child task relationships (subtasks)
-  - Due date management
+**Tasks**  
+Break down your projects into manageable work items. Tasks support priority levels from low to critical, status tracking from todo to done, and detailed time tracking with both estimates and actuals. The hierarchical task structure supports parent-child relationships, making it easy to organize complex work into subtasks.
 
-- **🎯 Milestones** - Set key deadlines and track progress
-  - Upcoming, Active, Completed, and Missed states
-  - Project association
-  - Deadline tracking
+**Milestones**  
+Mark key deadlines and deliverables with milestones. Track progress toward major goals and ensure your team stays aligned on critical dates. Milestones provide visibility into project timelines and help identify potential scheduling conflicts.
 
-- **👥 Team Management** - User management and role-based access
-  - Admin, Member, and Viewer roles
-  - Email-based user identification
-  - Activity tracking
+**Team Management**  
+Assign team members to projects and tasks with role-based access control. Support for admin, member, and viewer roles ensures appropriate access levels across your organization. Track who created and is responsible for each piece of work.
 
-- **💬 Comments** - Task-level discussions and collaboration
-  - Threaded conversations on tasks
-  - User attribution
-  - Timestamp tracking
+**Comments and Collaboration**  
+Enable team communication directly on tasks. Comments are timestamped and attributed, creating a clear conversation history that helps maintain context and institutional knowledge.
 
-- **🏷️ Tags** - Flexible organization system
-  - Custom labels with color coding
-  - Many-to-many task associations
-  - PatternFly color scheme support
+**Flexible Organization**  
+Use tags to create custom organizational schemes that match your workflow. Color-coded labels make it easy to visually categorize and filter work items according to your team's needs.
 
-- **📜 Audit Trail** - Complete change history
-  - Before/after state tracking
-  - User attribution
-  - Action logging (create, update, delete)
-  - JSON-based state snapshots
+**Complete Audit Trail**  
+Every change to projects and tasks is logged with before and after states. This comprehensive audit trail supports compliance requirements, enables undo functionality, and provides visibility into how work evolves over time.
 
 ## Screenshots
 
 ### Home Dashboard
 ![Home Dashboard](docs/screenshots/home.png)
-*Welcome screen with quick access to Projects, Tasks, and Milestones*
+
+The home page provides quick access to all major features with a clean, modern interface built on PatternFly design principles.
 
 ### Projects View
-![Projects](docs/screenshots/projects.png)
-*Project listing with status, deadlines, and team information*
+![Projects](docs/screenshots/projects-empty.png)
+
+The projects page displays your active projects in an organized gallery layout, with color-coded status indicators and key metadata at a glance.
 
 ### Tasks View
-![Tasks](docs/screenshots/tasks.png)
-*Task management with filtering, sorting, and bulk operations*
+![Tasks](docs/screenshots/tasks-empty.png)
+
+Task management with priority and status indicators helps you quickly assess workload and identify high-priority items requiring attention.
 
 ## Architecture
+
+Projectgator follows a modern, scalable architecture pattern that separates concerns while maintaining developer productivity:
 
 ```
 ┌─────────────┐         ┌──────────────┐         ┌──────────────┐
@@ -100,48 +89,69 @@ A simplified project management tool based on Labagator architecture. Track proj
 
 ### Technology Stack
 
+The technology choices prioritize stability, developer experience, and long-term maintainability:
+
 | Component | Technology | Version | Purpose |
 |-----------|-----------|---------|---------|
-| **Frontend** | Next.js | 15.1+ | React framework with App Router |
-| | PatternFly | 6.0+ | Enterprise UI component library |
-| | TypeScript | 5+ | Type-safe JavaScript |
-| **Backend** | FastAPI | 0.115+ | Modern Python web framework |
-| | SQLAlchemy | 2.0+ | ORM and database toolkit |
-| | Alembic | 1.13+ | Database migration tool |
-| | Pydantic | 2.9+ | Data validation |
-| **Database** | PostgreSQL | 14+ | Relational database |
-| **Auth** | OAuth Proxy | - | OpenShift OAuth integration |
-| **Deployment** | OpenShift | 4.x | Container orchestration |
-| | Ansible | 2.x | Infrastructure automation |
+| **Frontend** | Next.js | 15.1+ | React framework with App Router for optimal performance |
+| | PatternFly | 6.0+ | Enterprise UI component library from Red Hat |
+| | TypeScript | 5+ | Type-safe JavaScript for reduced bugs |
+| **Backend** | FastAPI | 0.115+ | High-performance Python web framework |
+| | SQLAlchemy | 2.0+ | Powerful ORM with advanced querying |
+| | Alembic | 1.13+ | Database migration tool for schema evolution |
+| | Pydantic | 2.9+ | Data validation and settings management |
+| **Database** | PostgreSQL | 14+ | Robust relational database with JSONB support |
+| **Auth** | OAuth Proxy | - | OpenShift OAuth integration for SSO |
+| **Deployment** | OpenShift | 4.x | Container orchestration platform |
+| | Ansible | 2.x | Infrastructure as code for repeatable deployments |
 
 ### Design Principles
 
-1. **Simplicity** - Focus on core project management without unnecessary complexity
-2. **Familiar Architecture** - Based on proven Labagator patterns for easy deployment
-3. **Modern Stack** - Latest stable versions of Next.js 15, React 19, FastAPI
-4. **Type Safety** - TypeScript frontend, Pydantic backend schemas
-5. **Audit Everything** - Complete change tracking for accountability
-6. **Developer Experience** - Fast local development with hot reload
+**Simplicity First**  
+Every feature is evaluated against the question: "Does this help users manage their work more effectively?" We resist feature creep and maintain a focused scope.
+
+**Familiar Patterns**  
+Built on the proven Labagator architecture, Projectgator leverages established patterns that teams already understand, reducing the learning curve for deployment and maintenance.
+
+**Modern Best Practices**  
+Utilizing the latest stable versions of Next.js 15 and React 19, we benefit from performance improvements and developer experience enhancements without chasing bleeding-edge instability.
+
+**Type Safety Throughout**  
+TypeScript on the frontend and Pydantic schemas on the backend catch errors at development time rather than in production, improving reliability.
+
+**Audit Everything**  
+Comprehensive change tracking isn't an afterthought—it's built into the core data model, ensuring you always have visibility into how your projects evolve.
+
+**Developer Experience**  
+Fast local development with hot reload, comprehensive test coverage, and clear documentation make it easy to contribute and extend the system.
 
 ## Quick Start
 
+Getting started with Projectgator is straightforward. This guide assumes you have basic familiarity with Python and Node.js development.
+
 ### Prerequisites
 
-- **Python 3.11+** - Backend runtime
-- **Node.js 20+** - Frontend runtime
-- **PostgreSQL 14+** - Database (or use Docker/Podman)
+Before you begin, ensure you have the following installed:
+
+- **Python 3.11 or higher** - Backend runtime environment
+- **Node.js 20 or higher** - Frontend runtime and build tools
+- **PostgreSQL 14 or higher** - Database (or Docker/Podman to run it)
 - **Git** - Source control
 
-### 1. Clone the Repository
+### Step 1: Clone the Repository
 
 ```bash
 git clone https://github.com/rhpds/projectgator.git
 cd projectgator
 ```
 
-### 2. Start PostgreSQL
+### Step 2: Start PostgreSQL
 
-#### Option A: Using Podman/Docker
+Choose the option that works best for your environment:
+
+#### Option A: Using Podman or Docker
+
+This is the recommended approach for local development:
 
 ```bash
 podman run -d \
@@ -155,18 +165,20 @@ podman run -d \
 
 #### Option B: Using System PostgreSQL
 
+If you prefer to use your system's PostgreSQL installation:
+
 ```bash
 # Create user and database
 sudo -u postgres createuser -P projectgator  # Password: projectgator
 sudo -u postgres createdb -O projectgator projectgator
 ```
 
-### 3. Backend Setup
+### Step 3: Backend Setup
 
 ```bash
 cd src/backend
 
-# Create virtual environment
+# Create and activate virtual environment
 python3 -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
@@ -176,13 +188,15 @@ pip install -r requirements.txt
 # Run database migrations
 alembic upgrade head
 
-# Start backend server (with auto-reload)
+# Start the backend server with auto-reload
 uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
 ```
 
-Backend will be available at: http://localhost:8080
+The backend will be available at http://localhost:8080. You can verify it's running by visiting http://localhost:8080/api/v1/health.
 
-### 4. Frontend Setup
+### Step 4: Frontend Setup
+
+Open a new terminal window:
 
 ```bash
 cd src/frontend
@@ -190,38 +204,49 @@ cd src/frontend
 # Install dependencies
 npm install
 
-# Start development server
+# Start the development server
 npm run dev
 ```
 
-Frontend will be available at: http://localhost:3001
+The frontend will be available at http://localhost:3001.
 
-### 5. Access the Application
+### Step 5: Access the Application
 
-Open your browser to **http://localhost:3001**
+Open your web browser and navigate to **http://localhost:3001**. You'll see the Projectgator home page with quick access to Projects, Tasks, and Milestones.
 
 ## Installation
 
 ### Detailed Backend Setup
 
+The backend requires Python 3.11 or higher. We recommend using a virtual environment to isolate dependencies:
+
 ```bash
 cd src/backend
 
-# Create and activate virtual environment
+# Create virtual environment
 python3 -m venv .venv
-source .venv/bin/activate
 
-# Upgrade pip
+# Activate virtual environment
+# On Linux/macOS:
+source .venv/bin/activate
+# On Windows:
+.venv\Scripts\activate
+
+# Upgrade pip to latest version
 pip install --upgrade pip
 
 # Install all dependencies
 pip install -r requirements.txt
 
 # Verify installation
-python -c "import fastapi, sqlalchemy, alembic; print('✓ Backend dependencies installed')"
+python -c "import fastapi, sqlalchemy, alembic; print('Backend dependencies installed successfully')"
 ```
 
+The `requirements.txt` includes both runtime and development dependencies, so you'll have everything you need for local development including pytest, ruff, and other tools.
+
 ### Detailed Frontend Setup
+
+The frontend requires Node.js 20 or higher:
 
 ```bash
 cd src/frontend
@@ -229,54 +254,65 @@ cd src/frontend
 # Install dependencies
 npm install
 
-# Verify installation
+# Verify installation with type checking
 npm run type-check
 
 # Build for production (optional)
 npm run build
+
+# The build output will be optimized and ready for deployment
 ```
 
 ## Configuration
 
 ### Environment Variables
 
-Create a `.env` file in the project root (copy from `.env.example`):
+Configuration is managed through environment variables with the `PROJECTGATOR_` prefix. Create a `.env` file in the project root by copying from the example:
 
 ```bash
-# Database
+cp .env.example .env
+```
+
+Edit the `.env` file with your configuration:
+
+```bash
+# Database connection
 PROJECTGATOR_DATABASE_URL=postgresql://projectgator:projectgator@localhost:5432/projectgator
 
-# Auth (comma-separated groups)
+# Authentication (comma-separated OpenShift groups)
 PROJECTGATOR_ALLOWED_GROUPS=rhdp-projectgator-admins,rhpds-admins
 PROJECTGATOR_ALLOWED_USERS=
 
-# CORS origins for API access
+# CORS configuration for API access
 PROJECTGATOR_CORS_ORIGINS=http://localhost:3001,http://localhost:3000
 
 # Debug mode (enables verbose logging)
 PROJECTGATOR_DEBUG=false
 ```
 
-### Backend Configuration
+### Backend Configuration Details
 
-Settings are managed via `src/backend/app/core/config.py` using Pydantic Settings:
+The backend uses Pydantic Settings for configuration management, defined in `src/backend/app/core/config.py`:
 
-- **Prefix**: `PROJECTGATOR_`
-- **Nested settings**: Use double underscore (e.g., `PROJECTGATOR_DATABASE__POOL_SIZE`)
-- **Environment file**: `.env` in project root
-- **Defaults**: Configured for local development
+- **Environment prefix**: `PROJECTGATOR_`
+- **Nested settings**: Use double underscore for nesting (e.g., `PROJECTGATOR_DATABASE__POOL_SIZE`)
+- **Environment file**: `.env` in project root (automatically loaded)
+- **Defaults**: Configured for local development out of the box
 
-### Frontend Configuration
+### Frontend Configuration Details
 
-Next.js configuration in `src/frontend/next.config.js`:
+Next.js configuration is in `src/frontend/next.config.js`:
 
-- **API Proxy**: Automatically proxies `/api/*` to backend (localhost:8080)
-- **React Strict Mode**: Enabled for development
-- **CSS**: Global PatternFly imports in `layout.tsx`
+- **API Proxy**: Development server automatically proxies `/api/*` requests to the backend at localhost:8080
+- **React Strict Mode**: Enabled for catching potential issues during development
+- **CSS**: Global PatternFly styles imported in `layout.tsx`
+- **Image Optimization**: Next.js built-in image optimization for better performance
 
 ## Database Schema
 
-### Entity Relationship Diagram
+### Entity Relationship Overview
+
+Projectgator uses a normalized relational schema optimized for query performance and data integrity:
 
 ```
 ┌──────────────┐       ┌──────────────┐       ┌──────────────┐
@@ -325,41 +361,28 @@ Next.js configuration in `src/frontend/next.config.js`:
                        └──────────────┘
 ```
 
-### Tables
+### Table Descriptions
 
-#### `users`
-- Stores user accounts and roles
-- Roles: `admin`, `member`, `viewer`
-- Unique email constraint
+**users**  
+Stores user accounts with role-based access control. Roles include `admin` (full access), `member` (read/write), and `viewer` (read-only). Email addresses are unique and serve as the primary identifier.
 
-#### `projects`
-- Main project container
-- Statuses: `planning`, `active`, `on_hold`, `completed`, `cancelled`
-- Cascade delete: deletes all tasks and milestones
+**projects**  
+The main container for organizing work. Projects can be in various states: `planning` (initial setup), `active` (work in progress), `on_hold` (temporarily suspended), `completed` (finished successfully), or `cancelled` (terminated). Cascade delete ensures that removing a project also removes all associated tasks and milestones.
 
-#### `tasks`
-- Work items with rich metadata
-- Statuses: `todo`, `in_progress`, `blocked`, `done`
-- Priorities: `low`, `medium`, `high`, `critical`
-- Supports parent-child relationships (subtasks)
-- Many-to-many with tags
+**tasks**  
+Represents individual work items within projects. Tasks support four statuses: `todo` (not started), `in_progress` (currently being worked on), `blocked` (waiting on external dependencies), and `done` (completed). Priority levels (`low`, `medium`, `high`, `critical`) help with work prioritization. Tasks can have parent-child relationships to create hierarchical work breakdowns.
 
-#### `milestones`
-- Key project deadlines
-- Statuses: `upcoming`, `active`, `completed`, `missed`
+**milestones**  
+Marks significant project deadlines and deliverables. Statuses include `upcoming` (future milestone), `active` (current focus), `completed` (achieved), and `missed` (deadline passed without completion).
 
-#### `comments`
-- Task-level discussions
-- Cascade delete with task
+**comments**  
+Enables discussion and collaboration at the task level. All comments are timestamped and attributed to users, creating an audit trail of conversations. Comments cascade delete with their parent tasks.
 
-#### `tags`
-- Organizational labels
-- PatternFly color options: `grey`, `blue`, `green`, `orange`, `red`, `purple`, `cyan`
+**tags**  
+Provides flexible categorization through custom labels. Tags support PatternFly color schemes (`grey`, `blue`, `green`, `orange`, `red`, `purple`, `cyan`) for visual organization. The many-to-many relationship with tasks allows a single tag to be applied to multiple tasks and vice versa.
 
-#### `audit_logs`
-- Complete change history
-- JSONB columns for before/after state
-- Indexed on table_name, record_id, created_at
+**audit_logs**  
+Maintains a complete history of all changes to the system. Each audit entry captures the table name, record ID, action type (`create`, `update`, `delete`), the user who made the change, and JSON snapshots of the before and after states. This comprehensive logging supports compliance requirements and enables undo functionality.
 
 ## API Documentation
 
@@ -369,80 +392,140 @@ Next.js configuration in `src/frontend/next.config.js`:
 http://localhost:8080/api/v1
 ```
 
+For production deployments, replace localhost with your deployed API domain.
+
 ### Authentication
 
-Currently configured for local development. Production deployment uses OpenShift OAuth proxy.
+The local development environment does not enforce authentication. In production deployments on OpenShift, authentication is handled by an OAuth proxy that validates user credentials before requests reach the API.
 
-### Endpoints
+### Projects Endpoints
 
-#### Projects
+**List All Projects**
+```http
+GET /api/v1/projects
+```
+
+Returns an array of all projects visible to the current user.
+
+**Get Specific Project**
+```http
+GET /api/v1/projects/{id}
+```
+
+Retrieves detailed information about a single project by ID.
+
+**Create New Project**
+```http
+POST /api/v1/projects
+Content-Type: application/json
+
+{
+  "name": "Q2 Marketing Campaign",
+  "description": "Social media and content marketing initiatives for Q2",
+  "status": "planning",
+  "owner_id": 1,
+  "start_date": "2026-04-01",
+  "due_date": "2026-06-30"
+}
+```
+
+Creates a new project and returns the created project with its assigned ID.
+
+**Update Project**
+```http
+PATCH /api/v1/projects/{id}
+Content-Type: application/json
+
+{
+  "status": "active",
+  "description": "Updated description with additional details"
+}
+```
+
+Partial update of project fields. Only provided fields are updated.
+
+**Delete Project**
+```http
+DELETE /api/v1/projects/{id}
+```
+
+Removes a project and all associated tasks and milestones. This operation cannot be undone.
+
+### Tasks Endpoints
+
+**List Tasks**
+```http
+GET /api/v1/tasks
+GET /api/v1/tasks?project_id=1
+GET /api/v1/tasks?status=in_progress
+GET /api/v1/tasks?assignee_id=2
+```
+
+Returns filtered or unfiltered list of tasks. Query parameters can be combined.
+
+**Get Specific Task**
+```http
+GET /api/v1/tasks/{id}
+```
+
+Retrieves detailed information about a single task by ID.
+
+**Create New Task**
+```http
+POST /api/v1/tasks
+Content-Type: application/json
+
+{
+  "project_id": 1,
+  "title": "Design landing page mockups",
+  "description": "Create three design variations for the campaign landing page",
+  "status": "todo",
+  "priority": "high",
+  "assignee_id": 2,
+  "reporter_id": 1,
+  "due_date": "2026-04-15",
+  "estimated_hours": 8.0
+}
+```
+
+Creates a new task and returns the created task with its assigned ID.
+
+**Update Task**
+```http
+PATCH /api/v1/tasks/{id}
+Content-Type: application/json
+
+{
+  "status": "in_progress",
+  "actual_hours": 3.5
+}
+```
+
+Partial update of task fields. Only provided fields are updated.
+
+**Delete Task**
+```http
+DELETE /api/v1/tasks/{id}
+```
+
+Removes a task. This operation cannot be undone.
+
+### Health Check
 
 ```http
-GET    /api/v1/projects          # List all projects
-GET    /api/v1/projects/{id}     # Get project by ID
-POST   /api/v1/projects          # Create new project
-PATCH  /api/v1/projects/{id}     # Update project
-DELETE /api/v1/projects/{id}     # Delete project
+GET /api/v1/health
 ```
 
-**Example: Create Project**
-```bash
-curl -X POST http://localhost:8080/api/v1/projects \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Q2 Marketing Campaign",
-    "description": "Social media and content marketing for Q2",
-    "status": "planning",
-    "owner_id": 1,
-    "start_date": "2026-04-01",
-    "due_date": "2026-06-30"
-  }'
-```
+Returns `{"status": "healthy"}` if the API is operational. Useful for monitoring and health checks.
 
-#### Tasks
+### Response Formats
 
-```http
-GET    /api/v1/tasks                    # List all tasks
-GET    /api/v1/tasks?project_id={id}    # Filter by project
-GET    /api/v1/tasks?status={status}    # Filter by status
-GET    /api/v1/tasks?assignee_id={id}   # Filter by assignee
-GET    /api/v1/tasks/{id}               # Get task by ID
-POST   /api/v1/tasks                    # Create new task
-PATCH  /api/v1/tasks/{id}               # Update task
-DELETE /api/v1/tasks/{id}               # Delete task
-```
-
-**Example: Create Task**
-```bash
-curl -X POST http://localhost:8080/api/v1/tasks \
-  -H "Content-Type: application/json" \
-  -d '{
-    "project_id": 1,
-    "title": "Design landing page mockups",
-    "description": "Create 3 design variations for the campaign landing page",
-    "status": "todo",
-    "priority": "high",
-    "assignee_id": 2,
-    "reporter_id": 1,
-    "due_date": "2026-04-15",
-    "estimated_hours": 8.0
-  }'
-```
-
-#### Health Check
-
-```http
-GET /api/v1/health  # Returns {"status": "healthy"}
-```
-
-### Response Format
-
-**Success Response (200)**
+**Success Response (200 OK)**
 ```json
 {
   "id": 1,
   "name": "Q2 Marketing Campaign",
-  "description": "Social media and content marketing for Q2",
+  "description": "Social media and content marketing initiatives for Q2",
   "status": "planning",
   "owner_id": 1,
   "start_date": "2026-04-01",
@@ -453,10 +536,23 @@ GET /api/v1/health  # Returns {"status": "healthy"}
 }
 ```
 
-**Error Response (404)**
+**Error Response (404 Not Found)**
 ```json
 {
   "detail": "Project not found"
+}
+```
+
+**Error Response (422 Validation Error)**
+```json
+{
+  "detail": [
+    {
+      "loc": ["body", "name"],
+      "msg": "field required",
+      "type": "value_error.missing"
+    }
+  ]
 }
 ```
 
@@ -464,293 +560,373 @@ GET /api/v1/health  # Returns {"status": "healthy"}
 
 ### Running Tests
 
-#### Backend Tests
+**Backend Tests**
+
+The backend includes a comprehensive test suite using pytest:
 
 ```bash
 cd src/backend
-pytest                    # Run all tests
-pytest -v                 # Verbose output
-pytest --cov              # With coverage report
-pytest tests/test_api/    # Specific directory
+
+# Run all tests
+pytest
+
+# Run with verbose output
+pytest -v
+
+# Run with coverage report
+pytest --cov
+
+# Run specific test file
+pytest tests/test_api/test_projects.py
+
+# Run tests matching a pattern
+pytest -k "test_create"
 ```
 
-#### Frontend Type Checking
+Tests use a temporary SQLite database and don't affect your development PostgreSQL instance.
+
+**Frontend Type Checking**
+
+Ensure type safety across the frontend:
 
 ```bash
 cd src/frontend
-npx tsc --noEmit         # Type check without emitting files
+
+# Type check without emitting files
+npx tsc --noEmit
 ```
 
 ### Code Quality
 
-#### Backend Linting
+**Backend Linting and Formatting**
+
+We use Ruff for fast, comprehensive Python linting:
 
 ```bash
 cd src/backend
-ruff check .              # Check for issues
-ruff check . --fix        # Auto-fix issues
-ruff format .             # Format code
+
+# Check for linting issues
+ruff check .
+
+# Automatically fix issues where possible
+ruff check . --fix
+
+# Format code
+ruff format .
 ```
 
-#### Frontend Linting
+**Frontend Linting**
+
+ESLint configuration ensures consistent code style:
 
 ```bash
 cd src/frontend
-npm run lint              # ESLint
+
+# Run ESLint
+npm run lint
 ```
 
 ### Database Migrations
 
-#### Create New Migration
+Alembic manages database schema evolution:
+
+**Create New Migration**
 
 ```bash
 cd src/backend
-alembic revision --autogenerate -m "Add new column to tasks"
+
+# Autogenerate migration from model changes
+alembic revision --autogenerate -m "Add priority column to tasks"
+
+# Review the generated migration file in alembic/versions/
+# Edit if necessary to ensure correctness
 ```
 
-#### Apply Migrations
+**Apply Migrations**
 
 ```bash
-alembic upgrade head      # Upgrade to latest
-alembic downgrade -1      # Downgrade one revision
-alembic history           # Show migration history
+# Upgrade to latest version
+alembic upgrade head
+
+# Downgrade one revision
+alembic downgrade -1
+
+# View migration history
+alembic history
+
+# View current version
+alembic current
 ```
 
-#### Migration Best Practices
+**Migration Best Practices**
 
-1. Always review auto-generated migrations
-2. Test migrations on a copy of production data
-3. Migrations should be reversible (implement `downgrade()`)
-4. Never edit applied migrations, create new ones
-5. Use descriptive migration messages
+1. Always review autogenerated migrations before applying
+2. Test migrations on a copy of production data when possible
+3. Ensure all migrations are reversible by implementing the `downgrade()` function
+4. Never edit migrations that have been applied to production
+5. Use clear, descriptive migration messages
 
 ### Local Development Workflow
 
-1. **Start services** - PostgreSQL, backend, frontend
-2. **Make changes** - Edit code with hot reload
-3. **Run tests** - Verify changes don't break existing functionality
-4. **Create migration** - If schema changes are needed
-5. **Commit** - Small, focused commits with descriptive messages
-6. **Push** - Triggers CI/CD pipeline
+**Daily Development Process**
 
-### Debugging
+1. **Start services** - Ensure PostgreSQL, backend, and frontend are running
+2. **Make changes** - Edit code with hot reload enabled for fast iteration
+3. **Run tests** - Verify changes don't introduce regressions
+4. **Create migration** - If you've modified database models
+5. **Commit changes** - Use clear, descriptive commit messages
+6. **Push** - Trigger the CI/CD pipeline
 
-#### Backend Debugging
+**Debugging Tips**
+
+**Backend Debugging**
+
+Enable debug mode for verbose logging:
 
 ```bash
-# Enable debug mode
 export PROJECTGATOR_DEBUG=true
 
-# Run with debugger
+# Run with Python debugger
 python -m pdb -m uvicorn app.main:app --reload
 ```
 
-#### Frontend Debugging
+**Frontend Debugging**
 
-- Use browser DevTools (F12)
-- React DevTools extension for component inspection
-- Network tab for API request debugging
+- Use browser DevTools (F12) for JavaScript debugging
+- Install React DevTools extension for component inspection
+- Check Network tab for API request/response debugging
+- Console logs automatically show in the browser console
 
-#### Database Inspection
+**Database Debugging**
+
+Connect directly to inspect data:
 
 ```bash
-# Connect to database
+# Connect to PostgreSQL
 psql postgresql://projectgator:projectgator@localhost:5432/projectgator
 
-# Useful queries
-\dt                       # List tables
+# Useful commands:
+\dt                       # List all tables
 \d users                  # Describe users table
+\d+ tasks                 # Detailed table description
+
+# Example queries:
 SELECT * FROM tasks WHERE status = 'in_progress';
+SELECT COUNT(*) FROM projects WHERE status = 'active';
 ```
 
 ## Deployment
 
 ### OpenShift Deployment
 
-Projectgator uses Ansible for automated deployment to OpenShift, following the same pattern as Labagator.
+Projectgator uses Ansible for automated, repeatable deployments to OpenShift clusters. The deployment process handles everything from namespace creation to webhook configuration.
 
-#### Prerequisites
+**Prerequisites**
 
-- OpenShift cluster access
-- `oc` CLI tool installed
-- Ansible installed
-- Cluster admin or sufficient permissions
+- OpenShift cluster access with appropriate permissions
+- `oc` CLI tool installed and configured
+- Ansible installed on your deployment machine
+- Cluster admin or sufficient RBAC permissions
 
-#### Deployment Steps
+**Deployment Process**
+
+1. **Create Environment Variables File**
 
 ```bash
-# 1. Create vars file
 cp ansible/vars/dev.yml.example ansible/vars/dev.yml
-
-# 2. Edit vars file with your cluster details
 vim ansible/vars/dev.yml
+```
 
-# 3. Deploy to dev environment
+Edit the file with your cluster-specific configuration, including database credentials, OAuth settings, and domain names.
+
+2. **Run Deployment Playbook**
+
+```bash
+# Deploy to development environment
 ansible-playbook ansible/deploy.yml -e env=dev
 
-# 4. Deploy to production
+# Deploy to production environment
 ansible-playbook ansible/deploy.yml -e env=prod
 ```
 
-#### Environment URLs
+The playbook handles:
+- Namespace and RBAC setup
+- Secret creation
+- Build configuration
+- Deployment manifests
+- Route configuration
+- Database migrations
+- Webhook configuration
 
-- **Dev**: `https://projectgator-dev.apps.<cluster-hostname>`
-- **Prod**: `https://projectgator.apps.<cluster-hostname>`
+**Environment URLs**
 
-### CI/CD Pipeline
+Once deployed, your application will be available at:
+
+- **Development**: `https://projectgator-dev.apps.<cluster-hostname>`
+- **Production**: `https://projectgator.apps.<cluster-hostname>`
+
+### Continuous Integration and Deployment
+
+**Automated Builds**
 
 GitHub webhooks trigger OpenShift builds automatically:
 
-1. **Push to `main`** → Builds `projectgator-dev` namespace
-2. **Push to `production`** → Builds `projectgator-prod` namespace
-3. **ImageStream update** → Auto-rollout to deployments
+1. Developer pushes to `main` branch
+2. GitHub webhook notifies OpenShift BuildConfig
+3. Build pod created and container image built
+4. ImageStream updated with new image
+5. Deployment automatically rolls out new version
 
-### Environment Variables (Production)
+This pipeline requires no manual intervention for standard code changes.
 
-Set via OpenShift ConfigMap and Secrets:
+**Environment Promotion**
 
-```yaml
-# ConfigMap: projectgator-backend-config
-PROJECTGATOR_CORS_ORIGINS: https://projectgator.apps.example.com
-PROJECTGATOR_ALLOWED_GROUPS: rhdp-projectgator-admins,rhpds-admins
+To promote code from development to production:
 
-# Secret: projectgator-database
-PROJECTGATOR_DATABASE_URL: postgresql://...
+```bash
+git checkout production
+git merge main
+git push origin production
+```
+
+The same automated build process applies to the production environment.
+
+### Configuration Management
+
+**Environment-Specific Settings**
+
+Environment variables are managed through:
+
+- **ConfigMap** (`projectgator-backend-config`) for non-sensitive configuration
+- **Secrets** for database credentials and OAuth tokens
+
+Update configuration:
+
+```bash
+# Edit the ConfigMap
+oc edit configmap projectgator-backend-config -n projectgator-dev
+
+# Restart pods to pick up changes
+oc rollout restart deployment/projectgator-backend -n projectgator-dev
+```
+
+### Backup and Recovery
+
+Production environments should implement regular database backups:
+
+```bash
+# Create manual backup
+oc exec deployment/projectgator-postgres -n projectgator-prod -- \
+  pg_dump -U projectgator projectgator > backup-$(date +%Y%m%d).sql
+
+# Restore from backup
+cat backup-20260417.sql | oc exec -i deployment/projectgator-postgres -n projectgator-prod -- \
+  psql -U projectgator projectgator
 ```
 
 ## Contributing
 
+We welcome contributions from the community. Whether you're fixing bugs, adding features, or improving documentation, your help makes Projectgator better for everyone.
+
 ### Branching Strategy
 
-- `main` - Development branch (auto-deploys to dev)
-- `production` - Stable branch (auto-deploys to prod)
-- `feature/*` - Feature branches
+- `main` - Primary development branch, deploys to dev environment
+- `production` - Stable release branch, deploys to production
+- `feature/*` - Feature development branches
 - `fix/*` - Bug fix branches
 
-### Commit Message Format
+### Contribution Process
 
-```
-<type>(<scope>): <subject>
+1. **Fork the repository** and create a feature branch from `main`
+2. **Make your changes** with appropriate tests
+3. **Run the test suite** and ensure all tests pass
+4. **Run linters** and fix any code quality issues
+5. **Commit your changes** with clear, descriptive messages
+6. **Push to your fork** and create a Pull Request
+7. **Wait for CI checks** to pass
+8. **Request review** from maintainers
+9. **Address feedback** if requested
+10. **Merge** after approval
 
-<body>
+### Commit Message Guidelines
 
-<footer>
-```
+Use clear, descriptive commit messages that explain the "why" behind changes:
 
-**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-
-**Example**:
 ```
 feat(tasks): add priority filtering to task list
 
-- Add priority filter dropdown
-- Update API to support priority query param
-- Add tests for priority filtering
+Add a dropdown filter for task priority levels. This helps users
+quickly find high-priority items that need immediate attention.
+
+Updates the API to support priority query parameter and adds
+corresponding tests for the new functionality.
 
 Closes #42
 ```
 
-### Pull Request Process
+**Commit Types**:
+- `feat` - New features
+- `fix` - Bug fixes
+- `docs` - Documentation changes
+- `style` - Code style changes (formatting, etc.)
+- `refactor` - Code refactoring
+- `test` - Test additions or modifications
+- `chore` - Build process or auxiliary tool changes
 
-1. Create feature branch from `main`
-2. Make changes with tests
-3. Run linters and type checks
-4. Push and create PR
-5. Wait for CI checks to pass
-6. Request review from team
-7. Merge after approval
+### Code Review Standards
 
-### Code Review Guidelines
+When reviewing code, consider:
 
-- Check for code quality and style
-- Verify tests cover new functionality
-- Ensure database migrations are safe
-- Review for security vulnerabilities
-- Confirm documentation is updated
-
-## Project Structure
-
-```
-projectgator/
-├── .env.example                    # Environment template
-├── .gitignore                      # Git ignore patterns
-├── README.md                       # This file
-├── DESIGN.md                       # Design decisions
-├── docs/                           # Documentation
-│   └── screenshots/                # Application screenshots
-├── ansible/                        # Deployment automation
-│   ├── deploy.yml                  # Main playbook
-│   ├── templates/                  # K8s manifests
-│   └── vars/                       # Environment configs
-├── src/
-│   ├── backend/                    # FastAPI backend
-│   │   ├── alembic/                # Database migrations
-│   │   │   ├── versions/           # Migration files
-│   │   │   ├── env.py              # Alembic config
-│   │   │   └── script.py.mako      # Migration template
-│   │   ├── app/
-│   │   │   ├── __init__.py
-│   │   │   ├── main.py             # FastAPI app
-│   │   │   ├── api/                # Route handlers
-│   │   │   │   ├── projects.py
-│   │   │   │   └── tasks.py
-│   │   │   ├── core/               # Config & database
-│   │   │   │   ├── config.py
-│   │   │   │   └── database.py
-│   │   │   ├── models/             # SQLAlchemy models
-│   │   │   │   ├── user.py
-│   │   │   │   ├── project.py
-│   │   │   │   ├── task.py
-│   │   │   │   ├── milestone.py
-│   │   │   │   ├── comment.py
-│   │   │   │   ├── tag.py
-│   │   │   │   └── audit.py
-│   │   │   ├── schemas/            # Pydantic schemas
-│   │   │   │   ├── project.py
-│   │   │   │   ├── task.py
-│   │   │   │   └── user.py
-│   │   │   └── services/           # Business logic
-│   │   ├── tests/                  # Backend tests
-│   │   ├── alembic.ini             # Alembic config
-│   │   └── requirements.txt        # Python dependencies
-│   └── frontend/                   # Next.js frontend
-│       ├── src/
-│       │   ├── app/                # App Router pages
-│       │   │   ├── layout.tsx      # Root layout
-│       │   │   ├── page.tsx        # Home page
-│       │   │   ├── projects/       # Projects pages
-│       │   │   └── tasks/          # Tasks pages
-│       │   ├── components/         # React components
-│       │   ├── services/           # API client
-│       │   └── types/              # TypeScript types
-│       ├── public/                 # Static assets
-│       ├── next.config.js          # Next.js config
-│       ├── tsconfig.json           # TypeScript config
-│       ├── package.json            # Node dependencies
-│       └── package-lock.json       # Locked dependencies
-```
-
-## License
-
-**Internal Red Hat tool.** Not for external distribution.
-
-This project is proprietary software developed for internal use within Red Hat. All rights reserved.
+- **Functionality** - Does it work as intended?
+- **Tests** - Are there appropriate tests?
+- **Documentation** - Are changes documented?
+- **Code Quality** - Is it readable and maintainable?
+- **Security** - Are there any security concerns?
+- **Performance** - Could this impact performance?
 
 ## Support
 
-For questions, issues, or feature requests:
+### Getting Help
 
-1. **GitHub Issues**: https://github.com/rhpds/projectgator/issues
-2. **Slack**: #rhdp-projectgator (internal)
-3. **Email**: rhdp-team@redhat.com
+If you encounter issues or have questions:
 
-## Acknowledgments
+**GitHub Issues**  
+Report bugs, request features, or ask questions at https://github.com/rhpds/projectgator/issues
 
-- **Based on Labagator** - Event lab deployment scheduler architecture
-- **PatternFly** - Red Hat's open source design system
-- **FastAPI** - Modern Python web framework
-- **Next.js** - React framework for production
+**Internal Communication**  
+For Red Hat employees:
+- Slack: #rhdp-projectgator
+- Email: rhdp-team@redhat.com
+
+When reporting issues, please include:
+- Steps to reproduce the problem
+- Expected behavior
+- Actual behavior
+- Environment details (OS, browser, etc.)
+- Relevant error messages or logs
+
+### Acknowledgments
+
+**Built On Strong Foundations**
+
+Projectgator is made possible by excellent open source software:
+
+- **Labagator** - The architectural foundation and inspiration
+- **PatternFly** - Red Hat's comprehensive design system
+- **FastAPI** - Modern, high-performance Python web framework
+- **Next.js** - The React framework for production
+- **PostgreSQL** - Powerful, reliable database system
+
+**The Team**
+
+Developed and maintained by the Red Hat Demo Platform team with contributions from the community.
+
+## License
+
+**Internal Red Hat Tool**
+
+This project is proprietary software developed for internal use within Red Hat. All rights reserved. Not for external distribution.
 
 ---
 
-**Made with ❤️ by the RHDP Team**
+**Projectgator - Simple project management, done right**
