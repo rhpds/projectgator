@@ -18,6 +18,10 @@ import {
   Label,
   Flex,
   FlexItem,
+  Alert,
+  AlertVariant,
+  AlertActionCloseButton,
+  Spinner,
 } from '@patternfly/react-core';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 
@@ -36,6 +40,10 @@ interface Project {
 export default function ProjectsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -55,10 +63,20 @@ export default function ProjectsPage() {
         start_date: '',
         due_date: '',
       });
+      setError(null);
     }
   };
 
   const handleSubmit = async () => {
+    // Validation
+    if (!formData.name.trim()) {
+      setError('Project name is required');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+
     try {
       const response = await fetch('/api/v1/projects', {
         method: 'POST',
@@ -72,21 +90,32 @@ export default function ProjectsPage() {
       if (response.ok) {
         const newProject = await response.json();
         setProjects([...projects, newProject]);
+        setSuccess('Project created successfully!');
         handleModalToggle();
+        setTimeout(() => setSuccess(null), 5000);
       } else {
-        console.error('Failed to create project');
+        const errorData = await response.json().catch(() => ({}));
+        setError(errorData.detail || 'Failed to create project. Please try again.');
       }
     } catch (error) {
       console.error('Error creating project:', error);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
     // Fetch projects on mount
+    setIsLoading(true);
     fetch('/api/v1/projects')
       .then(res => res.json())
       .then(data => setProjects(data))
-      .catch(err => console.error('Error fetching projects:', err));
+      .catch(err => {
+        console.error('Error fetching projects:', err);
+        setError('Failed to load projects. Please refresh the page.');
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const getStatusColor = (status: string) => {
@@ -123,7 +152,30 @@ export default function ProjectsPage() {
           </Button>
         </div>
 
-        {projects.length === 0 ? (
+        {success && (
+          <Alert
+            variant={AlertVariant.success}
+            title={success}
+            actionClose={<AlertActionCloseButton onClose={() => setSuccess(null)} />}
+            style={{ marginBottom: '1rem' }}
+          />
+        )}
+
+        {error && !isModalOpen && (
+          <Alert
+            variant={AlertVariant.danger}
+            title={error}
+            actionClose={<AlertActionCloseButton onClose={() => setError(null)} />}
+            style={{ marginBottom: '1rem' }}
+          />
+        )}
+
+        {isLoading ? (
+          <div style={{ textAlign: 'center', padding: '3rem' }}>
+            <Spinner size="xl" />
+            <p style={{ marginTop: '1rem' }}>Loading projects...</p>
+          </div>
+        ) : projects.length === 0 ? (
           <Card>
             <CardBody>
               <div style={{ textAlign: 'center', padding: '3rem' }}>
@@ -183,14 +235,28 @@ export default function ProjectsPage() {
         isOpen={isModalOpen}
         onClose={handleModalToggle}
         actions={[
-          <Button key="create" variant="primary" onClick={handleSubmit}>
-            Create
+          <Button
+            key="create"
+            variant="primary"
+            onClick={handleSubmit}
+            isDisabled={isSubmitting || !formData.name.trim()}
+            isLoading={isSubmitting}
+          >
+            {isSubmitting ? 'Creating...' : 'Create'}
           </Button>,
-          <Button key="cancel" variant="link" onClick={handleModalToggle}>
+          <Button key="cancel" variant="link" onClick={handleModalToggle} isDisabled={isSubmitting}>
             Cancel
           </Button>,
         ]}
       >
+        {error && (
+          <Alert
+            variant={AlertVariant.danger}
+            title={error}
+            actionClose={<AlertActionCloseButton onClose={() => setError(null)} />}
+            style={{ marginBottom: '1rem' }}
+          />
+        )}
         <Form>
           <FormGroup label="Project Name" isRequired fieldId="project-name">
             <TextInput
@@ -199,7 +265,13 @@ export default function ProjectsPage() {
               id="project-name"
               name="project-name"
               value={formData.name}
-              onChange={(_event, value) => setFormData({ ...formData, name: value })}
+              onChange={(_event, value) => {
+                setFormData({ ...formData, name: value });
+                if (error && value.trim()) {
+                  setError(null);
+                }
+              }}
+              validated={error && !formData.name.trim() ? 'error' : 'default'}
             />
           </FormGroup>
 

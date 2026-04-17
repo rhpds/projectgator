@@ -20,6 +20,10 @@ import {
   Label,
   Flex,
   FlexItem,
+  Alert,
+  AlertVariant,
+  AlertActionCloseButton,
+  Spinner,
 } from '@patternfly/react-core';
 import { PlusCircleIcon } from '@patternfly/react-icons';
 
@@ -42,6 +46,10 @@ interface Task {
 export default function TasksPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -64,10 +72,20 @@ export default function TasksPage() {
         due_date: '',
         estimated_hours: '',
       });
+      setError(null);
     }
   };
 
   const handleSubmit = async () => {
+    // Validation
+    if (!formData.title.trim()) {
+      setError('Task title is required');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+
     try {
       const response = await fetch('/api/v1/tasks', {
         method: 'POST',
@@ -82,20 +100,31 @@ export default function TasksPage() {
       if (response.ok) {
         const newTask = await response.json();
         setTasks([...tasks, newTask]);
+        setSuccess('Task created successfully!');
         handleModalToggle();
+        setTimeout(() => setSuccess(null), 5000);
       } else {
-        console.error('Failed to create task');
+        const errorData = await response.json().catch(() => ({}));
+        setError(errorData.detail || 'Failed to create task. Please try again.');
       }
     } catch (error) {
       console.error('Error creating task:', error);
+      setError('Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetch('/api/v1/tasks')
       .then(res => res.json())
       .then(data => setTasks(data))
-      .catch(err => console.error('Error fetching tasks:', err));
+      .catch(err => {
+        console.error('Error fetching tasks:', err);
+        setError('Failed to load tasks. Please refresh the page.');
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const getStatusColor = (status: string) => {
@@ -140,7 +169,30 @@ export default function TasksPage() {
           </Button>
         </div>
 
-        {tasks.length === 0 ? (
+        {success && (
+          <Alert
+            variant={AlertVariant.success}
+            title={success}
+            actionClose={<AlertActionCloseButton onClose={() => setSuccess(null)} />}
+            style={{ marginBottom: '1rem' }}
+          />
+        )}
+
+        {error && !isModalOpen && (
+          <Alert
+            variant={AlertVariant.danger}
+            title={error}
+            actionClose={<AlertActionCloseButton onClose={() => setError(null)} />}
+            style={{ marginBottom: '1rem' }}
+          />
+        )}
+
+        {isLoading ? (
+          <div style={{ textAlign: 'center', padding: '3rem' }}>
+            <Spinner size="xl" />
+            <p style={{ marginTop: '1rem' }}>Loading tasks...</p>
+          </div>
+        ) : tasks.length === 0 ? (
           <Card>
             <CardBody>
               <div style={{ textAlign: 'center', padding: '3rem' }}>
@@ -209,14 +261,28 @@ export default function TasksPage() {
         isOpen={isModalOpen}
         onClose={handleModalToggle}
         actions={[
-          <Button key="create" variant="primary" onClick={handleSubmit}>
-            Create
+          <Button
+            key="create"
+            variant="primary"
+            onClick={handleSubmit}
+            isDisabled={isSubmitting || !formData.title.trim()}
+            isLoading={isSubmitting}
+          >
+            {isSubmitting ? 'Creating...' : 'Create'}
           </Button>,
-          <Button key="cancel" variant="link" onClick={handleModalToggle}>
+          <Button key="cancel" variant="link" onClick={handleModalToggle} isDisabled={isSubmitting}>
             Cancel
           </Button>,
         ]}
       >
+        {error && (
+          <Alert
+            variant={AlertVariant.danger}
+            title={error}
+            actionClose={<AlertActionCloseButton onClose={() => setError(null)} />}
+            style={{ marginBottom: '1rem' }}
+          />
+        )}
         <Form>
           <FormGroup label="Task Title" isRequired fieldId="task-title">
             <TextInput
@@ -225,7 +291,13 @@ export default function TasksPage() {
               id="task-title"
               name="task-title"
               value={formData.title}
-              onChange={(_event, value) => setFormData({ ...formData, title: value })}
+              onChange={(_event, value) => {
+                setFormData({ ...formData, title: value });
+                if (error && value.trim()) {
+                  setError(null);
+                }
+              }}
+              validated={error && !formData.title.trim() ? 'error' : 'default'}
             />
           </FormGroup>
 
