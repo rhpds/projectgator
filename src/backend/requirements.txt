@@ -9,7 +9,7 @@ alembic>=1.13.3
 psycopg2-binary>=2.9.10
 
 # Pydantic
-pydantic>=2.9.2
+pydantic[email]>=2.9.2
 pydantic-settings>=2.6.0
 
 # Testing

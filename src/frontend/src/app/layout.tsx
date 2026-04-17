@@ -1,11 +1,7 @@
-import '@patternfly/patternfly/patternfly.css';
-import { Page, PageSection, Masthead, MastheadMain, MastheadBrand, MastheadContent } from '@patternfly/react-core';
-import type { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Projectgator',
-  description: 'Simple project management tool',
-};
+import '@patternfly/patternfly/patternfly.css';
+import { Page, Masthead, MastheadMain, MastheadBrand, MastheadContent } from '@patternfly/react-core';
 
 export default function RootLayout({
   children,
