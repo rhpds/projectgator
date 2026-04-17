@@ -7,6 +7,7 @@ import {
   Button,
   Modal,
   ModalVariant,
+  ModalFooter,
   Form,
   FormGroup,
   TextInput,
@@ -235,20 +236,6 @@ export default function ProjectsPage() {
         isOpen={isModalOpen}
         onClose={handleModalToggle}
         appendTo={() => document.body}
-        actions={[
-          <Button
-            key="create"
-            variant="primary"
-            onClick={handleSubmit}
-            isDisabled={isSubmitting || !formData.name.trim()}
-            isLoading={isSubmitting}
-          >
-            {isSubmitting ? 'Creating...' : 'Create'}
-          </Button>,
-          <Button key="cancel" variant="link" onClick={handleModalToggle} isDisabled={isSubmitting}>
-            Cancel
-          </Button>,
-        ]}
       >
         {error && (
           <Alert
@@ -300,6 +287,19 @@ export default function ProjectsPage() {
             />
           </FormGroup>
         </Form>
+        <ModalFooter>
+          <Button
+            variant="primary"
+            onClick={handleSubmit}
+            isDisabled={isSubmitting || !formData.name.trim()}
+            isLoading={isSubmitting}
+          >
+            {isSubmitting ? 'Creating...' : 'Create'}
+          </Button>
+          <Button variant="link" onClick={handleModalToggle} isDisabled={isSubmitting}>
+            Cancel
+          </Button>
+        </ModalFooter>
       </Modal>
     </>
   );
